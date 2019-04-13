@@ -1,3 +1,8 @@
+import copy
+import csv
+import time
+
+
 def insertion_sort(collection):
     """
     Counts the number of comparisons (between two elements) and swaps
@@ -68,26 +73,72 @@ def merge_sort(collection):
     return comparisons, swaps, sorted_collection
 
 
-def print_results(comparisons, swaps, sorted_collection):
-    print(f'Comparisons: {comparisons}'
-          f'\nSwaps: {swaps}'
-          f'\nSorted Collection: {sorted_collection}\n')
+def read_csv(filename):
+    data_set = list()
+    with open(filename + '.csv', 'r') as csv_file:
+        reader = csv.reader(csv_file)
+        for row in reader:
+            for x in range(len(row)):
+                try:
+                    data_set.append(int(row[x]))
+                except ValueError:
+                    pass
+
+    return data_set
 
 
-collections = []
-for x in reversed(range(100)):
-    collections.append(x)
-comparison, swap = insertion_sort(collections)
-print_results(comparison, swap, collections)
+def time_insertion_sort(data_set):
+    counts, elapsed_time = list(), list()
+
+    # for _ in range(10):
+    start_time = time.time_ns()
+    counts.append(insertion_sort(copy.deepcopy(data_set)))
+    end_time = time.time_ns()
+    elapsed_time.append(end_time - start_time)
+
+    return counts, elapsed_time
 
 
-collections = []
-for x in reversed(range(100)):
-    collections.append(x)
-comparison, swap, result = merge_sort(collections)
-print_results(comparison, swap, result)
+def time_merge_sort(data_set):
+    counts, elapsed_time = list(), list()
 
-collections = []
-for x in (range(100)):
-    collections.append(x)
+    for _ in range(10):
+        start_time = time.time_ns()
+        comparisons, swaps, sorted_list = merge_sort(data_set)
+        end_time = time.time_ns()
+        counts.append((comparisons, swaps))
+        elapsed_time.append(end_time - start_time)
 
+    return counts, elapsed_time
+
+
+def average_time(times):
+    total_time = 0
+    for element in times:
+        total_time += element
+
+    return int(total_time / len(times))
+
+
+def run_comparison(filename):
+    data_set = read_csv(filename)
+    insertion_counts, insertion_times = time_insertion_sort(data_set)
+    merge_counts, merge_times = time_merge_sort(data_set)
+
+    print('Insertion Sort:')
+    print_results(insertion_counts, insertion_times)
+    print('Merge Sort:')
+    print_results(merge_counts, merge_times)
+
+
+def print_results(counts, times):
+    print(f'\tRunetimes: {times}')
+    print(f'\tAverage: {average_time(times)}')
+    print(f'\tComparisons: {[x for x, y in counts]}')
+    print(f'\tSwaps: {[y for x, y in counts]}\n')
+
+
+# run_comparison('1k_ints')
+# run_comparison('10k_ints')
+run_comparison('100k_ints')
+# run_comparison('1000k_ints')
