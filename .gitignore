@@ -1,2 +1,9 @@
 
 .DS_Store
+*.xml
+*.iml
+*.xml
+.idea/vcs.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
