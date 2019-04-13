@@ -1,6 +1,3 @@
-numberOfCompMerge, numberOfSwapsMerge, counter = 0, 0, 0
-
-
 def insertion_sort(collection):
     """
     Counts the number of comparisons (between two elements) and swaps
@@ -65,12 +62,8 @@ def merge_sort(collection):
         comparisons, swaps = comparisons + 1, swaps + 1
 
     # if elements are left in only one sublist, merge them (guaranteed sorted)
-    if left:
-        sorted_collection += left
-        swaps += 1
-    if right:
-        sorted_collection += right
-        swaps += 1
+    sorted_collection += (left or right)
+    swaps += len(left or right)
 
     return comparisons, swaps, sorted_collection
 
@@ -89,7 +82,7 @@ print_results(comparison, swap, collections)
 
 
 collections = []
-for x in (range(100)):
+for x in reversed(range(100)):
     collections.append(x)
 comparison, swap, result = merge_sort(collections)
 print_results(comparison, swap, result)
