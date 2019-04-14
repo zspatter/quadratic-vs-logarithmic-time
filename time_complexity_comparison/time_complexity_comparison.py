@@ -1,6 +1,7 @@
 import copy
 import csv
 import time
+import datetime
 
 
 def insertion_sort(collection):
@@ -87,22 +88,22 @@ def read_csv(filename):
     return data_set
 
 
-def time_insertion_sort(data_set):
+def time_insertion_sort(data_set, iterations):
     counts, elapsed_time = list(), list()
 
-    # for _ in range(10):
-    start_time = time.time_ns()
-    counts.append(insertion_sort(copy.deepcopy(data_set)))
-    end_time = time.time_ns()
-    elapsed_time.append(end_time - start_time)
+    for _ in range(iterations):
+        start_time = time.time_ns()
+        counts.append(insertion_sort(copy.deepcopy(data_set)))
+        end_time = time.time_ns()
+        elapsed_time.append(end_time - start_time)
 
     return counts, elapsed_time
 
 
-def time_merge_sort(data_set):
+def time_merge_sort(data_set, iterations):
     counts, elapsed_time = list(), list()
 
-    for _ in range(10):
+    for _ in range(iterations):
         start_time = time.time_ns()
         comparisons, swaps, sorted_list = merge_sort(data_set)
         end_time = time.time_ns()
@@ -120,25 +121,34 @@ def average_time(times):
     return int(total_time / len(times))
 
 
-def run_comparison(filename):
+def run_comparison(filename, iterations):
+    print(filename + ' comparison:')
     data_set = read_csv(filename)
-    insertion_counts, insertion_times = time_insertion_sort(data_set)
-    merge_counts, merge_times = time_merge_sort(data_set)
+    insertion_counts, insertion_times = time_insertion_sort(data_set, iterations)
+    # merge_counts, merge_times = time_merge_sort(data_set, iterations)
 
     print('Insertion Sort:')
     print_results(insertion_counts, insertion_times)
-    print('Merge Sort:')
-    print_results(merge_counts, merge_times)
+    # print('Merge Sort:')
+    # print_results(merge_counts, merge_times)
+
+
+def run_1m_insertion():
+    print('1000k_ints comparison:')
 
 
 def print_results(counts, times):
-    print(f'\tRunetimes: {times}')
+    print(f'\tRun times: {times}')
     print(f'\tAverage: {average_time(times)}')
     print(f'\tComparisons: {[x for x, y in counts]}')
     print(f'\tSwaps: {[y for x, y in counts]}\n')
 
 
-# run_comparison('1k_ints')
-# run_comparison('10k_ints')
-run_comparison('100k_ints')
-# run_comparison('1000k_ints')
+start = datetime.datetime.now()
+# run_comparison('1k_ints', 10)
+# run_comparison('10k_ints', 10)
+run_comparison('100k_ints', 10)
+run_comparison('1000k_ints', 2)
+end = datetime.datetime.now()
+diff = end - start
+print(f'Total elapsed time for this comparison: {diff}')
