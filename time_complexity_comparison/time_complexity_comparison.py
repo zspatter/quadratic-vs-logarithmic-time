@@ -133,15 +133,12 @@ def run_comparison(filename, iterations):
     # print_results(merge_counts, merge_times)
 
 
-def run_1m_insertion():
-    print('1000k_ints comparison:')
-
-
 def print_results(counts, times):
+    counts = list(zip(*counts))
     print(f'\tRun times: {times}')
     print(f'\tAverage: {average_time(times)}')
-    print(f'\tComparisons: {[x for x, y in counts]}')
-    print(f'\tSwaps: {[y for x, y in counts]}\n')
+    print(f'\tComparisons: {counts[0]}')
+    print(f'\tSwaps: {counts[1]}\n')
 
 
 start = datetime.datetime.now()
