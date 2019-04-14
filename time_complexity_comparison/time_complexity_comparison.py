@@ -68,8 +68,9 @@ def merge_sort(collection):
         comparisons, swaps = comparisons + 1, swaps + 1
 
     # if elements are left in only one sublist, merge them (guaranteed sorted)
+    # this does not count as swapping as it is just a copy operation
+    #  no need for swap += len(left or right)
     sorted_collection += (left or right)
-    swaps += len(left or right)
 
     return comparisons, swaps, sorted_collection
 
@@ -128,6 +129,7 @@ def run_comparison(filename, iterations):
     # merge_counts, merge_times = time_merge_sort(data_set, iterations)
 
     print('Insertion Sort:')
+    """unpack args for print_results()?"""
     print_results(insertion_counts, insertion_times)
     # print('Merge Sort:')
     # print_results(merge_counts, merge_times)
@@ -144,8 +146,8 @@ def print_results(counts, times):
 start = datetime.datetime.now()
 # run_comparison('1k_ints', 10)
 # run_comparison('10k_ints', 10)
-run_comparison('100k_ints', 10)
-run_comparison('1000k_ints', 2)
+# run_comparison('100k_ints', 10)
+run_comparison('1000k_ints', 1)
 end = datetime.datetime.now()
 diff = end - start
 print(f'Total elapsed time for this comparison: {diff}')
