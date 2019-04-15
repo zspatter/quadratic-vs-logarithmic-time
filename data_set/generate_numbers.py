@@ -10,7 +10,7 @@ def generate_rand_ints(n):
     """
     rand_ints = list()
     for x in range(n):
-        rand_ints.append(random.randint(0, 1000000))
+        rand_ints.append(random.randint(0, 1_000_000))
 
     return rand_ints
 
@@ -51,8 +51,8 @@ def dump_list_to_csv(filename, data_set):
         print('I/O error')
 
 
-dump_list_to_csv('1k_ints', generate_rand_ints(1000))
-dump_list_to_csv('10k_ints', generate_rand_ints(10000))
-dump_list_to_csv('100k_ints', generate_rand_ints(100000))
-dump_list_to_csv('1000k_ints', generate_rand_ints(1000000))
-dump_list_to_csv('100k_sequential_ints', generate_sequential_ints(100000))
+dump_list_to_csv('1k_ints', generate_rand_ints(1_000))
+dump_list_to_csv('10k_ints', generate_rand_ints(10_000))
+dump_list_to_csv('100k_ints', generate_rand_ints(100_000))
+dump_list_to_csv('1000k_ints', generate_rand_ints(1_000_000))
+dump_list_to_csv('100k_sequential_ints', generate_sequential_ints(100_000))
