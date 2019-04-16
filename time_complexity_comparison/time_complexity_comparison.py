@@ -126,28 +126,29 @@ def run_comparison(filename, iterations):
     print(filename + ' comparison:')
     data_set = read_csv(filename)
     insertion_counts, insertion_times = time_insertion_sort(data_set, iterations)
-    # merge_counts, merge_times = time_merge_sort(data_set, iterations)
+    merge_counts, merge_times = time_merge_sort(data_set, iterations)
 
     print('Insertion Sort:')
     """unpack args for print_results()?"""
     print_results(insertion_counts, insertion_times)
-    # print('Merge Sort:')
-    # print_results(merge_counts, merge_times)
+    print('Merge Sort:')
+    print_results(merge_counts, merge_times)
 
 
 def print_results(counts, times):
     counts = list(zip(*counts))
     print(f'\tRun times: {times}')
-    print(f'\tAverage: {average_time(times)}')
+    print(f'\tAverage: {average_time(times): ,d}')
     print(f'\tComparisons: {counts[0]}')
     print(f'\tSwaps: {counts[1]}\n')
 
 
 start = datetime.datetime.now()
-# run_comparison('1k_ints', 10)
-# run_comparison('10k_ints', 10)
-# run_comparison('100k_ints', 10)
-run_comparison('1000k_ints', 1)
+run_comparison('1k_ints', 10)
+run_comparison('10k_ints', 10)
+run_comparison('100k_ints', 10)
+run_comparison('1000k_ints', 2)
+run_comparison('100k_sequential_ints', 10)
 end = datetime.datetime.now()
 diff = end - start
 print(f'Total elapsed time for this comparison: {diff}')
