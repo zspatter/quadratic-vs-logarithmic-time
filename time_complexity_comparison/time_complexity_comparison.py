@@ -76,6 +76,12 @@ def merge_sort(collection):
 
 
 def read_csv(filename):
+    """
+    Reads elements from csv file and returns list
+
+    :param filename:
+    :return: data_set list of elements read from csv
+    """
     data_set = list()
     with open(filename + '.csv', 'r') as csv_file:
         reader = csv.reader(csv_file)
@@ -90,6 +96,14 @@ def read_csv(filename):
 
 
 def time_insertion_sort(data_set, iterations):
+    """
+    Times the insertion sort operation on the given data set
+    and repeats this operation with the iterations passed
+
+    :param list data_set: list of comparable elements
+    :param int iterations: number of iterations
+    :return: counts of comparisons, swaps, and elapsed time (for each iteration)
+    """
     counts, elapsed_time = list(), list()
 
     for _ in range(iterations):
@@ -102,6 +116,14 @@ def time_insertion_sort(data_set, iterations):
 
 
 def time_merge_sort(data_set, iterations):
+    """
+    Times the merge sort operation on the given data set and repeats
+    this operation with the iterations passed
+
+    :param list data_set: list of comparable elements
+    :param int iterations: number of iterations
+    :return: counts of comparisons, swaps, and elapsed time (for each iteration)
+    """
     counts, elapsed_time = list(), list()
 
     for _ in range(iterations):
@@ -115,6 +137,12 @@ def time_merge_sort(data_set, iterations):
 
 
 def average_time(times):
+    """
+    Takes a collection and computers the average
+
+    :param list times: values obtained from the time_<sort> functions
+    :return: average of times
+    """
     total_time = 0
     for element in times:
         total_time += element
@@ -123,6 +151,13 @@ def average_time(times):
 
 
 def run_comparison(filename, iterations):
+    """
+    Runs the comparison between the two sort methods with the iterations
+    passed. The results are sent to print_results to display a summary on the console
+
+    :param str filename: name of file (excluding extension; must be .csv)
+    :param int iterations: number of iterations each dataset should be ran through
+    """
     print(filename + ' comparison:')
     data_set = read_csv(filename)
     insertion_counts, insertion_times = time_insertion_sort(data_set, iterations)
@@ -136,6 +171,13 @@ def run_comparison(filename, iterations):
 
 
 def print_results(counts, times):
+    """
+    Prints a summary of the comparison to the console
+
+    :param list counts: contains number of swaps and comparison operations
+    :param times: runtime duration for each iteration
+    :return:
+    """
     counts = list(zip(*counts))
     print(f'\tRun times: {times}')
     print(f'\tAverage: {average_time(times): ,d}')
